@@ -63,9 +63,9 @@ backend be-apiserver
    balance roundrobin
    default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
 
-       server master1 172.31.38.15:6443 check
-       server master2 172.31.25.18:6443 check
-       server master3 172.31.31.121:6443 check
+       server master1 <IP_ADDRESS>:6443 check
+       server master2 <IP_ADDRESS>:6443 check
+       server master3 <IP_ADDRESS>:6443 check
 ```
 
 * Restart and Verify haproxy
