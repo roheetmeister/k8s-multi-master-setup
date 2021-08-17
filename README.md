@@ -158,7 +158,7 @@ We will start off by initializing only one master node. For this demo, we will u
 * Execute the below command to initialize the cluster - 
 
 ```
-kubeadm init --control-plane-endpoint "LOAD_BALANCER_IP:LOAD_BALANCER_PORT" --upload-certs
+kubeadm init --control-plane-endpoint <LB_IP_ADRESS>:LOAD_BALANCER_PORT --upload-certs
 ```
 
 Here, LOAD_BALANCER_IP is the IP address of the loadbalancer.
@@ -168,7 +168,7 @@ The LOAD_BALANCER_PORT is the front end configuration port defined in HAPROXY co
 The command effectively becomes - 
 
 ```
-kubeadm init --control-plane-endpoint "<IPOfLoadBalancer>:6443" --upload-certs
+kubeadm init --control-plane-endpoint <LB_IP_ADRESS>:6443 --upload-certs
 ```
 
 Your output should look like below - 
@@ -186,7 +186,7 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 You can now join any number of the control-plane node running the following command on each as root:
 
-  kubeadm join 172.31.42.74:6443 --token cnslau.kd5fjt96jeuzymzb \
+  kubeadm join <LB_IP_ADRESS>:6443 --token cnslau.kd5fjt96jeuzymzb \
     --discovery-token-ca-cert-hash sha256:871ab3f050bc9790c977daee9e44cf52e15ee37ab9834567333b939458a5bfb5 \
     --control-plane --certificate-key 824d9a0e173a810416b4bca7038fb33b616108c17abcbc5eaef8651f11e3d146
 
@@ -196,7 +196,7 @@ As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you c
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join 172.31.42.74:6443 --token cnslau.kd5fjt96jeuzymzb \
+kubeadm join <LB_IP_ADRESS>:6443 --token cnslau.kd5fjt96jeuzymzb \
     --discovery-token-ca-cert-hash sha256:871ab3f050bc9790c977daee9e44cf52e15ee37ab9834567333b939458a5bfb5 
 ```
 
@@ -215,17 +215,17 @@ The output consists of 3 major tasks -
 2. Setup new control plane (master) using 
 
 ```
-  kubeadm join 172.31.42.74:6443 --token cnslau.kd5fjt96jeuzymzb \
-    --discovery-token-ca-cert-hash sha256:871ab3f050bc9790c977daee9e44cf52e15ee37ab9834567333b939458a5bfb5 \
-    --control-plane --certificate-key 824d9a0e173a810416b4bca7038fb33b616108c17abcbc5eaef8651f11e3d146
+  kubeadm join <LB_IP_ADRESS>:6443 --token <TOKEN_ID> \
+    --discovery-token-ca-cert-hash <CA_CERT_HASH_ID>  \
+    --control-plane --certificate-key <CERT_KEY>
 
 ```
 
 3. Join worker node using 
 
 ```
-kubeadm join 172.31.42.74:6443 --token cnslau.kd5fjt96jeuzymzb \
-    --discovery-token-ca-cert-hash sha256:871ab3f050bc9790c977daee9e44cf52e15ee37ab9834567333b939458a5bfb5 
+kubeadm join <LB_IP_ADRESS>:6443 --token <TOKEN_ID> \
+    --discovery-token-ca-cert-hash <CA_CERT_HASH_ID> 
 ```
 
 **NOTE** 
@@ -243,9 +243,9 @@ Save the output in some secure file for future use.
 You can now use the below command to add another node to the control plane - 
 
 ```
-kubeadm join 172.31.42.74:6443 --token cnslau.kd5fjt96jeuzymzb \
-    --discovery-token-ca-cert-hash sha256:871ab3f050bc9790c977daee9e44cf52e15ee37ab9834567333b939458a5bfb5 \
-    --control-plane --certificate-key 824d9a0e173a810416b4bca7038fb33b616108c17abcbc5eaef8651f11e3d146
+kubeadm join 172.31.42.74:6443 --token <TOKEN_ID> \
+    --discovery-token-ca-cert-hash <CA_CERT_HASH_ID>  \
+    --control-plane --certificate-key <CERT_KEY>
 
 ```
 
@@ -271,8 +271,8 @@ Now that we have initialized both the masters - we can now work on bootstrapping
 * Check the output given by the init command on **master1** to join worker node - 
 
 ```
-kubeadm join 172.31.42.74:6443 --token cnslau.kd5fjt96jeuzymzb \
-    --discovery-token-ca-cert-hash sha256:871ab3f050bc9790c977daee9e44cf52e15ee37ab9834567333b939458a5bfb5 
+kubeadm join 172.31.42.74:6443 --token <TOKEN_ID> \
+    --discovery-token-ca-cert-hash <CA_CERT_HASH_ID>  
 ```
 
 * Execute the above command on both the nodes - 
