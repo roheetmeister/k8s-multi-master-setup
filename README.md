@@ -63,9 +63,9 @@ backend be-apiserver
    balance roundrobin
    default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
 
-       server master1 <IP_ADDRESS>:6443 check
-       server master2 <IP_ADDRESS>:6443 check
-       server master3 <IP_ADDRESS>:6443 check
+       server master1 <PRIVATE_IP_ADDRESS>:6443 check
+       server master2 <PRIVATE_IP_ADDRESS>:6443 check
+       server master3 <PRIVATE_IP_ADDRESS>:6443 check
 ```
 
 * Restart and Verify haproxy
@@ -243,7 +243,7 @@ Save the output in some secure file for future use.
 You can now use the below command to add another node to the control plane - 
 
 ```
-kubeadm join 172.31.42.74:6443 --token <TOKEN_ID> \
+kubeadm join <LB_IP_ADRESS>:6443 --token <TOKEN_ID> \
     --discovery-token-ca-cert-hash <CA_CERT_HASH_ID>  \
     --control-plane --certificate-key <CERT_KEY>
 
