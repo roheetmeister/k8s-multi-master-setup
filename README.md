@@ -186,9 +186,9 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 You can now join any number of the control-plane node running the following command on each as root:
 
-  kubeadm join <LB_IP_ADRESS>:6443 --token cnslau.kd5fjt96jeuzymzb \
-    --discovery-token-ca-cert-hash sha256:871ab3f050bc9790c977daee9e44cf52e15ee37ab9834567333b939458a5bfb5 \
-    --control-plane --certificate-key 824d9a0e173a810416b4bca7038fb33b616108c17abcbc5eaef8651f11e3d146
+  kubeadm join <LB_IP_ADRESS>:6443 --token <TOKEN_ID> \
+    --discovery-token-ca-cert-hash <CA_CERT_HASH_ID> \
+    --control-plane --certificate-key <CERT_KEY>
 
 Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
 As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use 
@@ -196,8 +196,8 @@ As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you c
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join <LB_IP_ADRESS>:6443 --token cnslau.kd5fjt96jeuzymzb \
-    --discovery-token-ca-cert-hash sha256:871ab3f050bc9790c977daee9e44cf52e15ee37ab9834567333b939458a5bfb5 
+kubeadm join <LB_IP_ADRESS>:6443 --token <TOKEN_ID> \
+    --discovery-token-ca-cert-hash <CA_CERT_HASH_ID> 
 ```
 
 
